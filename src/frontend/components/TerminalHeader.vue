@@ -110,5 +110,5 @@ onUnmounted(() => {
 
 <style scoped>
 .monitor-nav{color:inherit;text-decoration:none;font-size:13px;white-space:nowrap;padding:6px;border-radius:6px}.monitor-nav:hover{background:rgba(120,130,150,.18)}
-@media(max-width:600px){.terminal-title{display:none}.monitor-nav{font-size:12px}}
+@media(max-width:600px){.terminal-title,.terminal-dots{display:none}.terminal-header{height:auto;min-height:40px;flex-wrap:wrap;gap:8px}.terminal-header-controls{min-width:0;flex-wrap:wrap;gap:6px;justify-content:flex-start}.monitor-nav{font-size:12px}}
 </style>

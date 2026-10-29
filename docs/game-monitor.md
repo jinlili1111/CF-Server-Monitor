@@ -46,3 +46,16 @@ PVE 独立采集器使用现有只读探针，通过受限 SSH 读取各游戏�
 现有外部主题有独立路由；游戏入口使用内置前端的 `/games` 路径。Worker在外部主题页面增加游戏导航，保留原服务器主题。
 
 systemd 单元模板见 `collectors/cf-game-monitor.service`，安装后执行 `systemctl daemon-reload` 与 `systemctl enable --now cf-game-monitor`。首次迁移保留既有峰值，CF在线曲线从本次接入开始积累。
+
+
+## 公网优选入口
+
+备用优选地址：`https://monitor-fast.jinli90.com/games#/games`。它使用本账户的精确Workers路由和两个已测试的Cloudflare边缘IP解析，复用同一Worker、数据库及后台账号。原 `monitor.jinli90.com` 自定义域名及探针上报地址保持原配置。
+
+DNS为两个A记录：`104.18.0.1`、`104.16.10.1`，DNS-only，TTL120秒。多A记录提供多个连接候选，浏览器如何排序与重试取决于客户端；不代表严格主备切换，也不是按运营商自动分流。当前实测覆盖家里PVE、36.138.222.18、175.27.233.72及Windows云服浏览器，不能保证所有公网更快，也不是Cloudflare中国网络加速。
+
+这是基于实际HTTPS验证的直接边缘IP接入方式。Cloudflare官方常规Workers路由文档要求proxied DNS，此入口的DNS-only配置应作为备用实验入口，后续若Cloudflare路由/证书行为变化应恢复标准代理模式。原入口继续保留，不在未经复测的情况下覆盖。
+
+运维脚本 `ops/edge_entry.py` 只操作独立域名及其自己创建的DNS记录，凭据与记录ID在外部私有目录。`python3 ops/edge_entry.py status` 读取状态；`prefer` 使用预先测试的双IP；`revert` 恢复新入口为Cloudflare标准代理解析并删除脚本创建的额外A记录，不修改原入口。没有启用SaaS、付费套餐或第三方优选域名。
+
+新域名首次使用需重新登录，账号密码沿用原站；Cookie和浏览器本地存储按域名隔离。原站登录状态不自动跨域共享。

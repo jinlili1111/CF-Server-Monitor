@@ -44,3 +44,8 @@ local_protocol = "https"
 [[routes]]
 pattern = "monitor.jinli90.com"
 custom_domain = true
+
+# Preferred-edge entry uses an explicit Worker route; DNS is managed separately.
+[[routes]]
+pattern = "monitor-fast.jinli90.com/*"
+zone_id = "98ed26def96974a54381f972fcc22c01"

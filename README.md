@@ -580,7 +580,7 @@ npm run test:agent-config
 本地 `.env` 至少需要：
 
 ```bash
-API_SECRET=123456
+API_SECRET=<YOUR_PASSWORD>
 ```
 
 ### 测试数据
@@ -606,7 +606,7 @@ https://localhost:8787/cdn-cgi/handler/scheduled?cron=0+12+*+*+* // 每天12点�
 
 ```bash
 node test/api-check.js
-node test/api-check.js --base-url=http://localhost:8787 --api-secret=123456
+node test/api-check.js --base-url=http://localhost:8787 --api-secret=<YOUR_PASSWORD>
 node test/api-check.js --help
 ```
 
@@ -664,7 +664,7 @@ CF-Server-Monitor/
 
 ### 忘记后台密码
 
-进入 Cloudflare D1 数据库 `server-monitor-db`，打开 `setting` 表，编辑 `site_options` 的 `password` 字段。旧版 MD5 兼容值 `e10adc3949ba59abbe56e057f20f883e` 对应密码 `123456`，保存后可用该密码登录，再到后台重新设置强密码。
+进入 Cloudflare D1 数据库 `server-monitor-db`，打开 `setting` 表，编辑 `site_options` 的 `password` 字段。旧版 MD5 兼容值 `e10adc3949ba59abbe56e057f20f883e` 对应密码 `<YOUR_PASSWORD>`，保存后可用该密码登录，再到后台重新设置强密码。
 
 ### 未托管在CF的域名不能绑定
 

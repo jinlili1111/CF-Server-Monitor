@@ -12,10 +12,11 @@
     "build:frontend": "node scripts/build.js",
     "build:github-page": "node scripts/build-github-page.js",
     "test": "node --test test/auto-discovery.test.js test/admin-usage.test.js test/cron-notification.test.js test/dashboard-latency-window.test.js test/frontend-admin-entry-url.test.js test/frontend-api-base.test.js test/frontend-live-socket.test.js test/latest-metrics-all.test.js test/latest-timestamps.test.js test/metrics-broadcaster-agent-config.test.js test/notification-language.test.js test/traffic-alert.test.js test/server-detail-cache.test.js test/update-payload-limit.test.js test/i18n-locales.test.js test/i18n-runtime.test.js",
-    "test:all": "npm run test && npm run test:agent-config && npm run test:history-query",
+    "test:all": "npm run test && npm run test:agent-config && npm run test:history-query && npm run test:games",
     "test:agent-config": "node test/agent-config.js",
     "test:history-query": "node --test test/history-query.test.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:games": "node --test test/games.test.js && python3 -m unittest discover -s collectors -p \"test_*.py\""
   },
   "keywords": [
     "cloudflare",

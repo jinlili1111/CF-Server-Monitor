@@ -1,3 +1,4 @@
+import { handleGameReport, handleGames, cleanupGameHistory } from './games/service.js';
 import { initDatabase, weeklyCleanup, getMetricsHistory, clearHistory } from './database/schema.js';
 import { checkOfflineNodes, checkExpiringServers, checkResourceAlerts } from './services/notification.js';
 import { updateDatabase } from './database/updateDatabase.js';
@@ -278,6 +279,8 @@ export default {
     }
 
     const routes = [
+      { method: 'POST', path: '/games/update', handler: () => handleGameReport(request, env) },
+      { method: 'GET', path: '/api/games', handler: () => handleGames(request, env) },
       { method: 'POST', path: '/update', handler: () => handleUpdate(request, env, ctx) },
       { method: 'GET', path: '/update', handler: () => handleUpdateWebSocketUpgrade(request, env) },
       { method: 'GET', path: '/__do/health', handler: async () => {
@@ -486,6 +489,7 @@ export default {
         debug('[Cron] 资源负载告警检测完成');
       }
     } else if (cron === '0 * * * *') {
+      await cleanupGameHistory(env.DB);
       if (day === 0 && hour === 0) {
         debug('[Cron] 开始执行每周数据清理任务（表轮换）');
         await weeklyCleanup(env.DB);

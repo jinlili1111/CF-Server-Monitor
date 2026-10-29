@@ -66,7 +66,7 @@ function envPlugin() {
 }
 
 export default defineConfig({
-  plugins: [vue(), mkcert(), envPlugin()],
+  plugins: [vue(), ...(process.env.NODE_ENV === 'production' ? [] : [mkcert()]), envPlugin()],
   base: process.env.VITE_BASE || '/',
   resolve: {
     alias: {

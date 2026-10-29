@@ -1,5 +1,8 @@
 # Cloudflare Workers 配置，线上已由deploy.yml接管，这里仅供本地测试
 name = "cf-server-monitor"
+account_id = "7b8ef28c9956bdd1d1e0e05492171fa8"
+workers_dev = true
+preview_urls = false
 main = "src/index.js"
 compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
@@ -19,7 +22,8 @@ binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "server-monitor-db"
+database_name = "cf-server-monitor-db"
+database_id = "9da190c9-d0b4-4f95-98ea-b99b50c8c271"
 
 # Durable Objects：实时指标广播中心
 # 注意：首次部署前需要执行 `wrangler durable-object create MetricsBroadcaster --class MetricsBroadcaster`
@@ -36,3 +40,7 @@ new_sqlite_classes = ["MetricsBroadcaster"]
 [dev]
 port = 8787
 local_protocol = "https"
+
+[[routes]]
+pattern = "monitor.jinli90.com"
+custom_domain = true

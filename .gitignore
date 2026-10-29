@@ -40,3 +40,9 @@ Thumbs.db
 # Cloudflare Workers
 .wrangler/
 dist/
+
+# Local dependency link
+node_modules
+
+__pycache__/
+*.pyc

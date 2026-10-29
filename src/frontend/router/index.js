@@ -6,6 +6,7 @@ import { normalizeAdminEntryUrl } from './adminEntryUrl'
 normalizeAdminEntryUrl()
 
 const routes = [
+  { path: '/games', name: 'Games', component: () => import('../views/Games.vue') },
   {
     path: '/',
     name: 'Dashboard',

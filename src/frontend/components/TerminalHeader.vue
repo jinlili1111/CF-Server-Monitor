@@ -7,6 +7,9 @@
     </div>
     <div class="terminal-title">{{ title }}</div>
     <div class="terminal-header-controls">
+      <a href="/#/" class="monitor-nav">服务器</a>
+      <a href="/#/games" class="monitor-nav">游戏服务</a>
+      <a v-if="route.params.id" :href="'/#/games?server='+encodeURIComponent(route.params.id)" class="monitor-nav">本机游戏</a>
       <div class="lang-select-wrapper">
         <svg class="lang-select-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10"></circle>
@@ -104,3 +107,8 @@ onUnmounted(() => {
   window.removeEventListener('languageChanged', handleLanguageChange)
 })
 </script>
+
+<style scoped>
+.monitor-nav{color:inherit;text-decoration:none;font-size:13px;white-space:nowrap;padding:6px;border-radius:6px}.monitor-nav:hover{background:rgba(120,130,150,.18)}
+@media(max-width:600px){.terminal-title{display:none}.monitor-nav{font-size:12px}}
+</style>

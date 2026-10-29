@@ -1,0 +1,28 @@
+[Unit]
+Description=Game service read-only collector for Cloudflare
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /opt/cf-game-monitor/game_collector.py
+Restart=on-failure
+RestartSec=10
+StateDirectory=cf-game-monitor
+StateDirectoryMode=0700
+WorkingDirectory=/var/lib/cf-game-monitor
+UMask=0077
+Environment=TZ=Asia/Shanghai
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/cf-game-monitor
+
+[Install]
+WantedBy=multi-user.target

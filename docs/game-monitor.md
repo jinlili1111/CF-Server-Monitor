@@ -44,3 +44,5 @@ PVE 独立采集器使用现有只读探针，通过受限 SSH 读取各游戏�
 `npm run test:games` 覆盖真实SQLite事务、鉴权、过期、重复/乱序上报和采集失败；原测试通过 `npm run test:all` 执行。线上验收应比较9个真实探针、鉴权接口、浏览器桌面与手机、历史曲线以及原7台服务器的指标和WebSocket。游戏级通知渠道尚未配置，本版本不声称已实现故障消息推送。
 
 现有外部主题有独立路由；游戏入口使用内置前端的 `/games` 路径。Worker在外部主题页面增加游戏导航，保留原服务器主题。
+
+systemd 单元模板见 `collectors/cf-game-monitor.service`，安装后执行 `systemctl daemon-reload` 与 `systemctl enable --now cf-game-monitor`。首次迁移保留既有峰值，CF在线曲线从本次接入开始积累。

@@ -16,7 +16,7 @@
     "test:agent-config": "node test/agent-config.js",
     "test:history-query": "node --test test/history-query.test.js",
     "preview": "vite preview",
-    "test:games": "node --test test/games.test.js && python3 -m unittest discover -s collectors -p \"test_*.py\""
+    "test:games": "node --test test/games.test.js test/games-frontend.test.js && python3 -m unittest discover -s collectors -p \"test_*.py\""
   },
   "keywords": [
     "cloudflare",

@@ -2,7 +2,7 @@
 
 基于 [huilang-me/CF-Server-Monitor](https://github.com/huilang-me/CF-Server-Monitor) 的适配版本，保留服务器资源监控，并加入游戏在线、依赖状态与历史曲线。使用同站登录，支持一台服务器关联多个游戏，采集器直接上报 Cloudflare，无需旧监控站点。
 
-- 游戏入口：`/#/games`；服务器详情页可查看本机游戏。
+- 游戏入口：`/games#/games`；服务器详情页可查看本机游戏。
 - 部署与采集说明：[docs/game-monitor.md](docs/game-monitor.md)。
 - 本分支以现役上游提交 `dd785ea` 为基线，`upstream` 用于跟踪后续更新。
 

@@ -429,6 +429,12 @@ async function loadThemeIndex(themeUrl) {
 
 function buildHtmlResponse(html, settings, request, env = {}, previewThemeUrl = '') {
   const rendered = injectAppearanceSettings(html, settings, env);
+  // Remote themes have their own routers. Expose our built-in game UI on a
+  // dedicated path instead of sending an unknown hash route to that theme.
+  if (!shouldUseBuiltinFrontend(new URL(request.url).pathname) && settings.theme_url) {
+    const entry = '<a href="/games#/games" aria-label="游戏服务" style="position:fixed;right:16px;top:72px;z-index:1000;background:#0e7490;color:white;padding:9px 14px;border-radius:8px;text-decoration:none;font:14px sans-serif;box-shadow:0 2px 8px #0003">游戏服务</a>';
+    rendered.html = rendered.html.replace(/<\/body>/i, entry + '</body>');
+  }
   const headers = new Headers({
     'Content-Type': 'text/html;charset=UTF-8',
     'X-Content-Type-Options': 'nosniff',
@@ -491,7 +497,7 @@ function resolveThemeUrlForAsset(request, settings) {
 }
 
 function shouldUseBuiltinFrontend(path) {
-  return path === '/admin' || path.startsWith('/admin/');
+  return path === '/games' || path.startsWith('/games/') || path === '/admin' || path.startsWith('/admin/');
 }
 
 export async function serveFrontend(request, env, settings = null) {

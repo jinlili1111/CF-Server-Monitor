@@ -47,9 +47,12 @@ backup = Path('/root/.config/cf-game-monitor/rollback')
 backup.mkdir(mode=0o700, exist_ok=True)
 response = session.get(base + f'/workers/scripts/{worker}', headers={'Authorization': 'Bearer '+token}, timeout=(15,90))
 response.raise_for_status()
-(backup/'worker-before.multipart').write_bytes(response.content)
-(backup/'content-type.txt').write_text(response.headers['Content-Type'])
-(backup/'settings.json').write_text(json.dumps(settings))
+if not (backup/'worker-before.multipart').exists():
+    (backup/'worker-before.multipart').write_bytes(response.content)
+if not (backup/'content-type.txt').exists():
+    (backup/'content-type.txt').write_text(response.headers['Content-Type'])
+if not (backup/'settings.json').exists():
+    (backup/'settings.json').write_text(json.dumps(settings))
 for file in backup.iterdir(): file.chmod(0o600)
 print('Previous Worker saved privately for rollback.', flush=True)
 

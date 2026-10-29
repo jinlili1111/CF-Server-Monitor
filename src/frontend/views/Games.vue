@@ -27,7 +27,7 @@
         </section>
       </article>
     </div>
-    <p v-if="route.query.server"><a href="/#/games">查看全部游戏</a></p>
+    <p v-if="route.query.server"><a href="/games#/games">查看全部游戏</a></p>
     <p v-if="!visibleGames.length && !loading && !error">此范围暂无游戏服务</p>
     <footer>“—”表示未知；不同游戏的在线统计口径不同，不作玩家总数相加。</footer>
   </main>

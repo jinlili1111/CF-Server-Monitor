@@ -94,7 +94,8 @@ def push(config, games):
     timestamp = str(int(time.time()))
     signature = hmac.new(config['report_secret'].encode(), timestamp.encode()+b'\n'+body, hashlib.sha256).hexdigest()
     req = urllib.request.Request(config['url'].rstrip('/')+'/games/update', data=body, headers={
-        'Content-Type': 'application/json', 'X-Game-Timestamp': timestamp,
+        'Content-Type': 'application/json', 'User-Agent': 'CFGameMonitor/1.0',
+        'X-Game-Timestamp': timestamp,
         'X-Game-Signature': signature,
     })
     # Direct egress: runtime never depends on the former 9.11 proxy.
